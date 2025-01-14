@@ -14,9 +14,13 @@ const LoginPage = () => {
     const result = await signIn("credentials", {
       email,
       password,
+      redirect: false,
     });
     if (!result?.error) {
+      console.log("Logged in done!");
       router.push("/conversations");
+    } else {
+      console.log("Failed");
     }
   };
 
@@ -46,7 +50,7 @@ const LoginPage = () => {
             }}
           />
         </div>
-        <button>Submit</button>
+        <button type="submit">Submit</button>
       </form>
     </>
   );
