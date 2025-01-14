@@ -13,7 +13,6 @@ export async function appendNewMessageFromUser(conversationId: string, userMessa
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      role: "user",
       content: userMessage
     })
   })
