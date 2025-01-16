@@ -52,7 +52,7 @@ const page = () => {
       <h1>History chat:</h1>
       <ul>
         {messages.map((message) => (
-          <li>{message.content}</li>
+          <li key={message.id}>{message.content}</li>
         ))}
       </ul>
     </div>
