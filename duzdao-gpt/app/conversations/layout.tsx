@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import SideBarIcon from "@/public/sidebar.svg";
 import ModelSelectIcon from "@/public/select-model.svg";
@@ -6,12 +8,18 @@ import AttachIcon from "@/public/file-attach.svg";
 import WebSearchIcon from "@/public/web-search.svg";
 import SendMessageIcon from "@/public/send-message.svg";
 import SideBar from "../components/ui/SideBar";
+import { useState } from "react";
 
 export default function ConversationLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [isOpenSidebar, setIsOpenSideBar] = useState(false);
+  const toggleSidebar = () => {
+    setIsOpenSideBar(!isOpenSidebar);
+  };
+
   const conversations = [
     { id: "1", title: "conversation 1", updatedAt: "10h" },
     { id: "2", title: "conversation 2", updatedAt: "10h" },
@@ -25,16 +33,22 @@ export default function ConversationLayout({
   ];
   return (
     <div className="flex flex-col h-screen w-screen">
-      <div className="conversation-header px-4 pt-4 flex flex-row w-full justify-between">
+      <div className="conversation-header px-2 pt-2 flex flex-row w-full justify-between">
         <div className="sidebar">
-          <Image src={SideBarIcon} alt="" />
-          <SideBar conversations={conversations} />
+          <div className="p-2 hover:bg-gray-100 hover:cursor-pointer rounded-xl">
+            <Image src={SideBarIcon} alt="" onClick={toggleSidebar} />
+          </div>
+          <SideBar
+            conversations={conversations}
+            isOpenSidebar={isOpenSidebar}
+            toggleSidebar={toggleSidebar}
+          />
         </div>
-        <div className="model-selection flex flex-row">
+        <div className="model-selection flex flex-row p-2 hover:bg-gray-100 hover:cursor-pointer rounded-xl">
           <p>ChatGPT</p>
           <Image src={ModelSelectIcon} alt=""></Image>
         </div>
-        <div className="new-chat">
+        <div className="new-chat p-2 hover:bg-gray-100 hover:cursor-pointer rounded-xl">
           <Image src={NewChatIcon} alt=""></Image>
         </div>
       </div>
