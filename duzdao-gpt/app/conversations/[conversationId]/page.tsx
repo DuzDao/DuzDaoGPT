@@ -25,10 +25,6 @@ const page = () => {
     fetchMessages();
   }, [firstTimeFetchMessages, newMessageFromUser]);
 
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
-
   if (firstTimeFetchMessages) {
     setFirstTimeFetchMessages(false);
   }

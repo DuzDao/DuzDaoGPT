@@ -4,14 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest) {
+  const userId = req.headers.get("userid");
+
   try {
-    const userId = req.headers.get('userId');
     if (userId === null) {
       return NextResponse.json({ error: 'Unauthorized userId not found' }, { status: 401 });
     }
 
     const conversations = await prisma.conversations.findMany({
-      where: {
+      where: { 
         userId: userId,
       },
     });

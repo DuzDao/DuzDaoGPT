@@ -1,9 +1,25 @@
 'use server';
 
+export async function getConversations(userId: string) {
+  const res = await fetch(process.env.URL + "/api/conversations", {
+    method: "GET",
+    headers: {
+      "userId": userId
+    }
+  })
+
+  if (res.ok) {
+    const result = await res.json();
+    return result;
+  }
+}
+
 export async function getMessages(conversationId: string) {
   const res = await fetch(process.env.URL + `/api/conversations/${conversationId}`, {method: "GET"})
-  const result = await res.json();
-  return result;
+  if (res.ok) {
+    const result = await res.json();
+    return result;
+  } 
 }
 
 export async function appendNewMessageFromUser(conversationId: string, userMessage: string) {
@@ -16,5 +32,6 @@ export async function appendNewMessageFromUser(conversationId: string, userMessa
       content: userMessage
     })
   })
-  return (await res.json()).newMessage;
+
+  return await res.json();
 }
