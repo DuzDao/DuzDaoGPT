@@ -15,9 +15,7 @@ const page = () => {
 
   useEffect(() => {
     const fetchMessages = async () => {
-      console.log("fetching...");
       if (newMessageFromUser != "") {
-        console.log("New message from User");
         await appendNewMessageFromUser(conversationId, newMessageFromUser);
         setNewMessageFromUser("");
       }
