@@ -8,29 +8,40 @@ import AttachIcon from "@/public/file-attach.svg";
 import WebSearchIcon from "@/public/web-search.svg";
 import SendMessageIcon from "@/public/send-message.svg";
 import SideBar from "../components/ui/SideBar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getConversations } from "../lib/actions";
+import { getSession } from "next-auth/react";
 
 export default function ConversationLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [userId, setUserId] = useState("");
+  const [conversations, setConversations] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchUserid = async () => {
+      const session = await getSession();
+      if (session) {
+        setUserId(session?.user.id);
+      }
+    };
+    fetchUserid();
+  }, []);
+
+  useEffect(() => {
+    const fetchConversation = async () => {
+      const res = await getConversations(userId);
+      await setConversations(res.conversations);
+    };
+    fetchConversation();
+  }, [userId]);
+
   const [isOpenSidebar, setIsOpenSideBar] = useState(false);
   const toggleSidebar = () => {
     setIsOpenSideBar(!isOpenSidebar);
   };
 
-  const conversations = [
-    { id: "1", title: "conversation 1", updatedAt: "10h" },
-    { id: "2", title: "conversation 2", updatedAt: "10h" },
-    { id: "3", title: "conversation 3", updatedAt: "10h" },
-    { id: "4", title: "conversation 4", updatedAt: "10h" },
-    {
-      id: "5",
-      title: "This conversation title is quite long",
-      updatedAt: "10h",
-    },
-  ];
   return (
     <div className="flex flex-col h-screen w-screen">
       <div className="conversation-header px-2 pt-2 flex flex-row w-full justify-between">
