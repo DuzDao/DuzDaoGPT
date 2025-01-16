@@ -24,11 +24,7 @@ const page = () => {
     fetchConversation();
   }, [userId]);
 
-  return (
-    <div>
-      <h1>Conversations</h1>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default page;

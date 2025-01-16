@@ -6,11 +6,25 @@
   --chatgpt-branch-green: #00a67e;
   --chatgpt-branch-arsenic: #3c3c50;
   --chatgpt-branch-black: #141414;
-  --chatgpt-branch-gray: #e0e0e0;
+  --chatgpt-branch-gray: #f0f0f0;
+  --chatgpt-branch-light-gray: #f5f5f5;
+
 }
 
 .bg-green-branch {
   background: var(--chatgpt-branch-green);
+}
+
+.bg-light-gray-branch {
+  background: var(--chatgpt-branch-light-gray);
+}
+
+.bg-gray-branch {
+  background: var(--chatgpt-branch-gray);
+}
+
+.bg-gray-branch {
+  background: var(--chatgpt-branch-gray);
 }
 
 .color-green-branch {
