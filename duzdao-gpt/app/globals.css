@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --chatgpt-branch-green: #00a67e;
+  --chatgpt-branch-arsenic: #3c3c50;
+  --chatgpt-branch-black: #141414;
+  --chatgpt-branch-gray: #e0e0e0;
+}
+
+.bg-green-branch {
+  background: var(--chatgpt-branch-green);
+}
+
+.color-green-branch {
+  color: var(--chatgpt-branch-green);
+}
+
+/* Animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.hover-will-spin {
+  transition: transform 0.3s ease;
+}
+
+.hover-will-spin:hover {
+  animation: spin 5s linear infinite;
+}
+
+.always-spin {
+  animation: spin 5s linear infinite;
+}
+
+/* Auth animation */
+.auth-input-placeholder {
+  transition: all 0.5 ease;
+}
+
+.auth-input-field:focus + .auth-input-placeholder,
+.auth-input-field:not(:placeholder-shown) + .auth-input-placeholder {
+  transform: translateY(-50%);
+  top: 0;
+  left: 15px;
+  background-color: var(--chatgpt-branch-green);
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+}

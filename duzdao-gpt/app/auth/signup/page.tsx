@@ -5,30 +5,24 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import AuthInput from "@/app/components/ui/AuthInput";
 
-const LoginPage = () => {
+const SignupPage = () => {
   const router = useRouter();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
-    if (!result?.error) {
-      console.log("Logged in done!");
-      router.push("/conversations");
-    } else {
-      console.log("Logged in failed");
-    }
-  };
+  const handleSubmit = async () => {};
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-14 pb-16">
-      <h1 className="font-bold text-3xl">Welcome back</h1>
+      <h1 className="font-bold text-3xl">Create an account</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <AuthInput
+          type="name"
+          value={name}
+          setValue={setName}
+          placeholder="Username"
+        />
         <AuthInput
           type="email"
           value={email}
@@ -49,12 +43,9 @@ const LoginPage = () => {
         </button>
 
         <div className="flex flex-row gap-3 items-center justify-center">
-          <p>Don't have an account?</p>
-          <a
-            href="/auth/signup"
-            className="color-green-branch hover:brightness-90"
-          >
-            Sign Up
+          <p>Already have an account?</p>
+          <a href="/auth/login" className="color-green-branch">
+            Login
           </a>
         </div>
       </form>
@@ -62,4 +53,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;
