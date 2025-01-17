@@ -4,13 +4,12 @@ import Image from "next/image";
 import SideBarIcon from "@/public/sidebar.svg";
 import ModelSelectIcon from "@/public/select-model.svg";
 import NewChatIcon from "@/public/new-chat.svg";
-import AttachIcon from "@/public/file-attach.svg";
-import WebSearchIcon from "@/public/web-search.svg";
-import SendMessageIcon from "@/public/send-message.svg";
+
 import SideBar from "../components/ui/SideBar";
 import { useState, useEffect } from "react";
 import { getConversations } from "../lib/actions";
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function ConversationLayout({
   children,
@@ -19,6 +18,7 @@ export default function ConversationLayout({
 }>) {
   const [userId, setUserId] = useState("");
   const [conversations, setConversations] = useState<any[]>([]);
+  const router = useRouter();
   useEffect(() => {
     const fetchUserid = async () => {
       const session = await getSession();
@@ -60,10 +60,17 @@ export default function ConversationLayout({
           <Image src={ModelSelectIcon} alt=""></Image>
         </div>
         <div className="new-chat p-2 hover:bg-gray-100 hover:cursor-pointer rounded-xl">
-          <Image src={NewChatIcon} alt=""></Image>
+          <Image
+            src={NewChatIcon}
+            alt=""
+            onClick={() => router.push("/conversations")}
+          ></Image>
         </div>
       </div>
-      <div className="conversation-body flex-grow">{children}</div>
+      {children}
+      {/* <div className="conversation-body flex-grow overflow-auto">
+        {children}
+      </div>
       <div className="conversation-footer flex flex-col">
         <div className="input-zone mx-3 px-3 py-2 bg-light-gray-branch flex flex-col gap-5 rounded-3xl">
           <input
@@ -91,7 +98,7 @@ export default function ConversationLayout({
             ?
           </p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
