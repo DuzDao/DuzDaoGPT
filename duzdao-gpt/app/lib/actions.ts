@@ -35,3 +35,19 @@ export async function appendNewMessageFromUser(conversationId: string, userMessa
 
   return await res.json();
 }
+
+export async function createNewUser(username: string, email: string, password: string) {
+  const res = await fetch(process.env.URL + "/api/auth/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: username,
+      email: email,
+      password: password
+    })
+  })
+
+  return await res.json();
+}

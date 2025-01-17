@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { signIn } from "next-auth/react";
+import { createNewUser } from "@/app/lib/actions";
 import { useRouter } from "next/navigation";
 import AuthInput from "@/app/components/ui/AuthInput";
 
@@ -10,8 +10,12 @@ const SignupPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await createNewUser(name, email, password);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-14 pb-16">
@@ -34,6 +38,12 @@ const SignupPage = () => {
           value={password}
           setValue={setPassword}
           placeholder="Password"
+        />
+        <AuthInput
+          type="password"
+          value={confirmPassword}
+          setValue={setConfirmPassword}
+          placeholder="Confirm password"
         />
         <button
           type="submit"
