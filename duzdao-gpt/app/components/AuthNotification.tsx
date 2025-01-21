@@ -2,10 +2,17 @@ import React, { useEffect, useState } from "react";
 
 interface Props {
   status: string;
+  setStatus: (status: string) => void;
   notification: string;
+  setNotification: (notification: string) => void;
 }
 
-const AuthNotification = ({ status, notification }: Props) => {
+const AuthNotification = ({
+  status,
+  setStatus,
+  notification,
+  setNotification,
+}: Props) => {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -14,7 +21,9 @@ const AuthNotification = ({ status, notification }: Props) => {
 
       const timer = setTimeout(() => {
         setShowModal(false);
-      }, 5000);
+        setStatus("");
+        setNotification("");
+      }, 3000);
 
       return () => clearTimeout(timer);
     }

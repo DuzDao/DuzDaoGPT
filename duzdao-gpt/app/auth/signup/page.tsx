@@ -3,16 +3,29 @@
 import React, { useState } from "react";
 import { createNewUser } from "@/app/lib/actions";
 import AuthInput from "@/app/components/ui/AuthInput";
+import AuthNotification from "@/app/components/AuthNotification";
 
 const SignupPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [status, setStatus] = useState("");
+  const [notification, setNotification] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await createNewUser(name, email, password);
+    console.log(status);
+    const res = await createNewUser(name, email, password);
+    if (res.error) {
+      setStatus("error");
+      setNotification(res.error);
+    }
+
+    if (password != confirmPassword) {
+      setNotification("Confirm password not match!");
+      setStatus("error");
+    }
   };
 
   return (
@@ -57,6 +70,12 @@ const SignupPage = () => {
           </a>
         </div>
       </form>
+      <AuthNotification
+        status={status}
+        setStatus={setStatus}
+        notification={notification}
+        setNotification={setNotification}
+      />
     </div>
   );
 };

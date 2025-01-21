@@ -69,7 +69,12 @@ const LoginPage = () => {
           </a>
         </div>
       </form>
-      <AuthNotification status={status} notification={notification} />
+      <AuthNotification
+        status={status}
+        setStatus={setStatus}
+        notification={notification}
+        setNotification={setNotification}
+      />
     </div>
   );
 };
