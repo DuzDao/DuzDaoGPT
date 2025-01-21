@@ -8,7 +8,7 @@ interface Props {
 const UserMessage = ({ id, content }: Props) => {
   return (
     <li key={id} className="flex justify-end">
-      <p className="bg-gray-200 max-w-64 px-3 py-2 rounded-xl">{content}</p>
+      <p className="bg-gray-100 max-w-96 px-3 py-2 rounded-xl">{content}</p>
     </li>
   );
 };

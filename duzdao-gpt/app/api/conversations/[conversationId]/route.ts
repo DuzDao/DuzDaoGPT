@@ -48,12 +48,22 @@ export async function POST(req: NextRequest, {params}: Params) {
       }
     })
     
-    // send message to openai api
+
+    // Get all messages of conversation
+    const context = await prisma.messages.findMany({
+      where: {conversationId:conversationId}
+    })
+
+    const messages: { role: "user" | "system"; content: string}[] = context.map((message) => ({
+      role: message.role === "user" ? "user" : "system",
+      content: message.content,
+    }));
+
+    // send messages to openai api
     const completion = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo', 
       messages: [
-        { role: 'system', content: 'You are a helpful assistant.' }, 
-        { role: 'user', content: content },
+        ...messages,
       ],
     });
 

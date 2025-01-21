@@ -10,6 +10,7 @@ import AttachIcon from "@/public/file-attach.svg";
 import WebSearchIcon from "@/public/web-search.svg";
 import SendMessageIcon from "@/public/send-message.svg";
 import UserMessage from "@/app/components/UserMessage";
+import ModelMessage from "@/app/components/ModelMessage";
 
 const page = () => {
   const params = useParams();
@@ -43,13 +44,13 @@ const page = () => {
 
   return (
     <>
-      <div className="conversation-body flex-grow overflow-auto ms-4 me-6">
-        <ul>
+      <div className="conversation-body flex-grow overflow-auto ms-4 me-1">
+        <ul className="me-2 flex flex-col gap-3">
           {messages.map((message) =>
             message.role === "user" ? (
               <UserMessage id={message.id} content={message.content} />
             ) : (
-              <li>Model response</li>
+              <ModelMessage id={message.id} content={message.content} />
             )
           )}
         </ul>
