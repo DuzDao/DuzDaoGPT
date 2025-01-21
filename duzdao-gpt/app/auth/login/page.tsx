@@ -4,24 +4,35 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import AuthInput from "@/app/components/ui/AuthInput";
+import AuthNotification from "@/app/components/AuthNotification";
 
 const LoginPage = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [notification, setNotification] = useState("");
+  const [status, setStatus] = useState("");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (email.trim() === "" || password.trim() === "") {
+      setStatus("error");
+      setNotification("Email or password is required!");
+      return;
+    }
+
     const result = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
+
     if (!result?.error) {
-      console.log("Logged in done!");
       router.push("/conversations");
     } else {
-      console.log("Logged in failed");
+      setStatus("error");
+      setNotification("Wrong email or password!");
     }
   };
 
@@ -58,6 +69,7 @@ const LoginPage = () => {
           </a>
         </div>
       </form>
+      <AuthNotification status={status} notification={notification} />
     </div>
   );
 };

@@ -2,11 +2,9 @@
 
 import React, { useState } from "react";
 import { createNewUser } from "@/app/lib/actions";
-import { useRouter } from "next/navigation";
 import AuthInput from "@/app/components/ui/AuthInput";
 
 const SignupPage = () => {
-  const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
