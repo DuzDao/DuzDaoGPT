@@ -25,6 +25,11 @@ interface Props {
 const SideBar = ({ conversations, isOpenSidebar, toggleSidebar }: Props) => {
   const router = useRouter();
 
+  const handleNewChatButton = () => {
+    toggleSidebar();
+    router.push("/conversations");
+  };
+
   return (
     <div className={isOpenSidebar ? "" : "hidden"}>
       <div className="sidebar-modal p-2 outline outline-1 outline-gray-200 bg-white fixed top-0 left-0 w-72 flex flex-col h-screen">
@@ -37,18 +42,14 @@ const SideBar = ({ conversations, isOpenSidebar, toggleSidebar }: Props) => {
               <Image src={ChatSearchIcon} alt="" />
             </div>
             <div className="hover:bg-gray-100 hover:cursor-pointer p-2 rounded-xl">
-              <Image
-                src={NewChatIcon}
-                alt=""
-                onClick={() => router.push("/conversations")}
-              />
+              <Image src={NewChatIcon} alt="" onClick={handleNewChatButton} />
             </div>
           </div>
         </div>
         <div className="sidebar-body flex-grow mt-2 overflow-auto">
           <div className="first-section">
             <button
-              onClick={() => router.push("/conversations")}
+              onClick={handleNewChatButton}
               className="flex w-full gap-3 hover:bg-gray-100 rounded-xl px-3 py-2"
             >
               <div className="outline outline-1 rounded-full p-0.5 outline-slate-300 bg-white">
@@ -67,7 +68,11 @@ const SideBar = ({ conversations, isOpenSidebar, toggleSidebar }: Props) => {
             <ul>
               {conversations.map((conversation) => {
                 return (
-                  <li key={conversation.id} className="w-full">
+                  <li
+                    key={conversation.id}
+                    className="w-full"
+                    onClick={toggleSidebar}
+                  >
                     <ConversationItemButton
                       title={conversation.title}
                       conversationId={conversation.id}

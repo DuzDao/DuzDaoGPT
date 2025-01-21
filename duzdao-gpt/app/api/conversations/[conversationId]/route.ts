@@ -88,3 +88,18 @@ export async function POST(req: NextRequest, {params}: Params) {
     return NextResponse.json({error: error}, {status: 500})
   }
 }
+
+export async function DELETE(req: NextRequest, {params}: Params) {
+  try {
+    await prisma.conversations.delete({
+      where: {
+        id: 'cm66adh2n0001hdr8oadsylwd'
+      }
+    })
+
+    return NextResponse.json({message: "Conversation deleted"}, {status: 200})
+  } catch (error: any) {
+    console.log(error.stack);
+    return NextResponse.json({error: "Internal server error"}, {status: 500})
+  }
+}

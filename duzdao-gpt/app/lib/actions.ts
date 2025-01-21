@@ -14,6 +14,20 @@ export async function getConversations(userId: string) {
   }
 }
 
+export async function deleteConversation(conversationId: string) {
+  const res = await fetch(process.env.URL + `/api/conversations/${conversationId}`, {
+    method: "DELETE",
+    headers: {
+      "conversationId": conversationId
+    }
+  })
+  
+  if (res.ok) {
+    const result = await res.json();
+    return result;
+  }
+}
+
 export async function getMessages(conversationId: string) {
   const res = await fetch(process.env.URL + `/api/conversations/${conversationId}`, {method: "GET"})
   if (res.ok) {
@@ -50,4 +64,19 @@ export async function createNewUser(username: string, email: string, password: s
   })
 
   return await res.json();
+}
+
+export async function createNewConversation(userId: string, title: string) {
+  const res = await fetch(process.env.URL + "/api/conversations", {
+    method: "POST",
+    headers: {
+      userId: userId,
+      title: title
+    }
+  })
+
+  if (res.ok) {
+    const result = await res.json();
+    return result;
+  }
 }

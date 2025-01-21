@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import dayjs from "dayjs";
 
 const prisma = new PrismaClient();
 
@@ -15,6 +16,9 @@ export async function GET(req: NextRequest) {
       where: { 
         userId: userId,
       },
+      orderBy: {
+        updatedAt: "desc"
+      }
     });
 
     return NextResponse.json({ conversations }, { status: 200 });
@@ -25,6 +29,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  console.log(req);
   try {
     const userId = req.headers.get("userId");
 
@@ -33,13 +38,13 @@ export async function POST(req: NextRequest) {
     }
 
     // Title
-    const { title } = await req.json();
+    const title = await req.headers.get("title");
 
     // Create new conversation
     const newConversation = await prisma.conversations.create({
       data: {
         userId: userId,
-        title: title || `New conversation on ${Date.now()}`,
+        title: title || `New conversation on ${dayjs(new Date()).format("DD/MM/YYYY")}`,
       }
     })
     

@@ -56,14 +56,15 @@ const page = () => {
         </ul>
       </div>
       <div className="conversation-footer flex flex-col">
-        <form action={handleSendMessage}>
+        <form action={handleSendMessage} autoComplete="off">
           <div className="input-zone mt-3 mx-3 px-3 py-2 bg-light-gray-branch flex flex-col gap-5 rounded-3xl">
-            <input
-              type="text"
+            <textarea
+              rows={2}
               name="message"
-              className="bg-transparent outline-none mt-1"
+              className="block resize-none w-full bg-transparent outline-none mt-1"
               placeholder="Message something..."
             />
+
             <div className="support-buttons flex flex-row justify-between">
               <div className="flex flex-row items-center">
                 <div className="hover:bg-gray-200 rounded-2xl p-1 hover:cursor-pointer">
