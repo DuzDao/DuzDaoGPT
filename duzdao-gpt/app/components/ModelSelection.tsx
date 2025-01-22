@@ -1,20 +1,30 @@
 import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
 import ModelSelectIcon from "@/public/select-model.svg";
-import {
-  ThunderboltOutlined,
-  StarOutlined,
-  WechatOutlined,
-  CheckCircleFilled,
-  CommentOutlined,
-  MoonOutlined,
-} from "@ant-design/icons";
-
+import { CommentOutlined, MoonOutlined } from "@ant-design/icons";
+import ModelChoice from "./ModelChoice";
 import Image from "next/image";
+interface Model {
+  id: string;
+  name: string;
+  alias: string;
+  isChosen: boolean;
+}
 
 const ModelSelection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dadRef = useRef<HTMLDivElement>(null);
   const childRef = useRef<HTMLDivElement>(null);
+  const models: Model[] = [
+    { id: "1", name: "ChatGPT 4o mini", alias: "gpt-4o-mini", isChosen: false },
+    { id: "2", name: "ChatGPT 4o", alias: "gpt-4o", isChosen: false },
+    { id: "3", name: "ChatGPT o1", alias: "o1", isChosen: false },
+    {
+      id: "4",
+      name: "ChatGPT 3.5 turbo",
+      alias: "gpt-3.5-turbo",
+      isChosen: true,
+    },
+  ];
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -58,48 +68,21 @@ const ModelSelection = () => {
           <h1 className="text-sm font-semibold">
             Choose one of our best models
           </h1>
+
+          {/* List of models */}
           <ul className="h-full text-sm flex flex-col justify-center w-full">
-            <li
-              key="1"
-              className="flex flex-row items-center justify-between hover:bg-gray-100 p-2 rounded-xl"
-            >
-              <div className="flex flex-row gap-2 items-center">
-                <StarOutlined className="bg-gray-200 p-2 rounded-full" />
-                <h1>ChatGPT 4o mini</h1>
-              </div>
-              <div>
-                <button className="bg-white font-semibold outline outline-1 outline-gray-200 px-2 py-1 rounded-xl">
-                  Upgrade
-                </button>
-              </div>
-            </li>
-            <li
-              key="2"
-              className="flex flex-row items-center justify-between hover:bg-gray-100 p-2 rounded-xl"
-            >
-              <div className="flex flex-row gap-2 items-center">
-                <ThunderboltOutlined className="bg-gray-200 p-2 rounded-full" />
-                <h1>ChatGPT 4o</h1>
-              </div>
-              <div>
-                <button className="bg-white font-semibold outline outline-1 outline-gray-200 px-2 py-1 rounded-xl">
-                  Upgrade
-                </button>
-              </div>
-            </li>
-            <li
-              key="3"
-              className="flex flex-row items-center justify-between hover:bg-gray-100 p-2 rounded-xl"
-            >
-              <div className="flex flex-row gap-2 items-center">
-                <WechatOutlined className="bg-gray-200 p-2 rounded-full" />
-                <h1>ChatGPT 3.5 Turbo</h1>
-              </div>
-              <div>
-                <CheckCircleFilled />
-              </div>
-            </li>
+            {models.map((model) => {
+              return (
+                <ModelChoice
+                  id={model.id}
+                  name={model.name}
+                  isChosen={model.isChosen}
+                />
+              );
+            })}
           </ul>
+
+          {/* Activate temporary chat */}
           <div className="outline w-full outline-1 outline-gray-300 my-2"></div>
           <div className="flex flex-row justify-between hover:bg-gray-100 w-full p-2 rounded-xl items-center">
             <div className="flex flex-row gap-2 items-center">
