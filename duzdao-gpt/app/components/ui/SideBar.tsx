@@ -31,7 +31,7 @@ const SideBar = ({ conversations, isOpenSidebar, toggleSidebar }: Props) => {
   };
 
   return (
-    <div className={isOpenSidebar ? "" : "hidden"}>
+    <div className={isOpenSidebar ? "z-20" : "hidden z-20"}>
       <div className="sidebar-modal p-2 outline outline-1 outline-gray-200 bg-white fixed top-0 left-0 w-72 flex flex-col h-screen">
         <div className="sidebar-header flex flex-row justify-between">
           <div className="hover:bg-gray-100 hover:cursor-pointer p-2 rounded-xl ">

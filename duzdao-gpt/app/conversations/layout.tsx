@@ -2,14 +2,13 @@
 
 import Image from "next/image";
 import SideBarIcon from "@/public/sidebar.svg";
-import ModelSelectIcon from "@/public/select-model.svg";
 import NewChatIcon from "@/public/new-chat.svg";
-
 import SideBar from "../components/ui/SideBar";
 import { useState, useEffect } from "react";
 import { getConversations } from "../lib/actions";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import ModelSelection from "../components/ModelSelection";
 
 export default function ConversationLayout({
   children,
@@ -46,7 +45,7 @@ export default function ConversationLayout({
   return (
     <div className="flex flex-col h-screen w-screen">
       <div className="conversation-header px-2 pt-2 flex flex-row w-full justify-between">
-        <div className="sidebar">
+        <div className="sidebar z-20">
           <div className="p-2 hover:bg-gray-100 hover:cursor-pointer rounded-xl">
             <Image src={SideBarIcon} alt="" onClick={toggleSidebar} />
           </div>
@@ -56,10 +55,7 @@ export default function ConversationLayout({
             toggleSidebar={toggleSidebar}
           />
         </div>
-        <div className="model-selection flex flex-row p-2 hover:bg-gray-100 hover:cursor-pointer rounded-xl">
-          <p>ChatGPT</p>
-          <Image src={ModelSelectIcon} alt=""></Image>
-        </div>
+        <ModelSelection></ModelSelection>
         <div className="new-chat p-2 hover:bg-gray-100 hover:cursor-pointer rounded-xl">
           <Image
             src={NewChatIcon}
